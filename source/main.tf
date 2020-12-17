@@ -26,19 +26,23 @@ module "resource_group" {
   tags        = var.tags
 }
 
-# Create one hub virtual network with two spokes
+# Create hub virtual network with two spokes
 module "virtual_network" {
   source = "./modules/virtual_network"
 
-  prefix      = var.prefix
-  environment = var.environment
-  location    = var.location
-  tags        = var.tags
+  prefix              = var.prefix
+  environment         = var.environment
+  location            = module.resource_group.location
+  tags                = var.tags
+  resource_group_name = module.resource_group.name
 
-  resource_group_name               = module.resource_group.name
-  hub_address_space                 = ["10.0.0.0/22"]
-  hub_dns_servers                   = ["8.8.8.8", "8.8.4.4"]
-  hub_gatewaysubnet_address_prefix  = "10.0.0.0/26"
-  hub_firewallsubnet_address_prefix = "10.0.0.64/26"
-  hub_defaultsubnet_address_prefix  = "10.0.1.0/24"
+  # Virtual network IP configuration
+  hub_address_space                    = ["10.0.0.0/22"]
+  hub_dns_servers                      = ["8.8.8.8", "8.8.4.4"]
+  hub_gatewaysubnet_address_prefix     = "10.0.0.0/26"
+  hub_firewallsubnet_address_prefix    = "10.0.0.64/26"
+  hub_defaultsubnet_address_prefix     = "10.0.1.0/24"
+  spoke01_address_space                = ["10.1.0.0/22"]
+  spoke01_dns_servers                  = ["8.8.8.8", "8.8.4.4"]
+  spoke01_defaultsubnet_address_prefix = "10.1.1.0/24"
 }

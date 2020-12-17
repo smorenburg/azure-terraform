@@ -19,8 +19,6 @@ variable "location" {
 }
 
 variable "tags" {
-  type = object({
-    State = string
-  })
+  type        = map
   description = "Resource tags"
 }
