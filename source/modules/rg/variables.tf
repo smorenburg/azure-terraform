@@ -1,9 +1,4 @@
-# variables.tf
-
-variable "subscription_id" {
-  type        = string
-  description = "Resource subscription identifier"
-}
+# modules/rg/variables.tf
 
 variable "prefix" {
   type        = string
