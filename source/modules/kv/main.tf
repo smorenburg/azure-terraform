@@ -1,6 +1,6 @@
 # modules/kv/main.tf
 
-# Create kev vault
+# Create key vault
 resource "azurerm_key_vault" "kv01" {
   name                        = "${var.prefix}-${var.environment}-kv01"
   location                    = var.location
